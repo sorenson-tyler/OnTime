@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+	    <title>OnTime</title>
+	    <!-- Assets -->
+	    <!-- <script src="assets/libs/angular.min.js"></script>
+	    <script src="assets/libs/angular-route.min.js"></script> -->
+	    <script src="assets/libs/angular.js"></script>
+	    <script src="assets/libs/angular-route.js"></script>
+	    <script src="assets/libs/ui-bootstrap-tpls-2.4.0.js"></script>
+	    <!-- Application -->
+	    <script src="app/app.module.js"></script>
+	    <script src="app/app.route.js"></script>
+	    <!-- Pages -->
+	    <script src="app/components/home/homeController.js"></script>
+
+	    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+
+	</head>
+	<body ng-app="onTime">
+		<div ng-controller="HomeController as home">
+			<h1>OnTime</h1>
+			<div ng-view></div>
+    	</div>
+	</body>
+</html>
