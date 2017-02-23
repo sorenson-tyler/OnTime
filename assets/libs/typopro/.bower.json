@@ -1,0 +1,35 @@
+{
+  "name": "typopro",
+  "version": "3.5.0",
+  "description": "Fonts for Professional Typography (META)",
+  "homepage": "https://github.com/rse/typopro",
+  "license": "MIT AND Apache AND OFL AND CC0",
+  "authors": [
+    "Ralf S. Engelschall <rse@engelschall.com>"
+  ],
+  "keywords": [
+    "font",
+    "typography",
+    "ttf",
+    "otf",
+    "woff",
+    "eot"
+  ],
+  "dependencies": {
+    "typopro-web": "3.5.0",
+    "typopro-dtp": "3.5.0"
+  },
+  "ignore": [
+    "**/.*"
+  ],
+  "_release": "3.5.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "3.5.0",
+    "commit": "c1fac1105b29eec0e9228446c607faf682a06c63"
+  },
+  "_source": "https://github.com/rse/typopro.git",
+  "_target": "^3.5.0",
+  "_originalSource": "typopro",
+  "_direct": true
+}

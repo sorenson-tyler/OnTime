@@ -1,0 +1,50 @@
+{
+  "name": "ontime",
+  "description": "Public transit helper",
+  "main": "app.js",
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "angular": "^1.6.2",
+    "angular-route": "^1.6.2",
+    "font-awesome": "fontawesome#^4.7.0",
+    "typopro": "^3.5.0"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "dist/js/bootstrap.js",
+        "dist/css/bootstrap.min.css",
+        "less/bootstrap.less"
+      ]
+    },
+    "angular": {
+      "main": [
+        "angular.js"
+      ]
+    },
+    "angular-route": {
+      "main": [
+        "angular-route.js"
+      ]
+    },
+    "font-awesome": {
+      "main": [
+        "css/font-awesome.css"
+      ]
+  },
+  "typopro-web" : {
+      "main": [
+          "web/TypoPRO-Ubuntu/*"
+      ]
+  }
+  }
+}

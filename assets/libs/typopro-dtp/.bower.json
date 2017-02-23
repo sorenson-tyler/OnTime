@@ -1,0 +1,31 @@
+{
+  "name": "typopro-dtp",
+  "version": "3.5.0",
+  "description": "Fonts for Professional Typography (DTP)",
+  "homepage": "https://github.com/rse/typopro-dtp",
+  "license": "MIT AND Apache AND OFL AND CC0",
+  "authors": [
+    "Ralf S. Engelschall <rse@engelschall.com>"
+  ],
+  "keywords": [
+    "font",
+    "typography",
+    "ttf",
+    "otf",
+    "woff",
+    "eot"
+  ],
+  "dependencies": {},
+  "ignore": [
+    "**/.*"
+  ],
+  "_release": "3.5.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "3.5.0",
+    "commit": "679900020c12eba86e758e4b880cd7eb1d3854af"
+  },
+  "_source": "https://github.com/rse/typopro-dtp.git",
+  "_target": "3.5.0",
+  "_originalSource": "typopro-dtp"
+}

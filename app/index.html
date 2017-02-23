@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+	    <title>OnTime</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<!-- bower:js -->
+		<script src="../assets/libs/jquery/dist/jquery.js"></script>
+		<script src="../assets/libs/bootstrap/dist/js/bootstrap.js"></script>
+		<script src="../assets/libs/angular/angular.js"></script>
+		<script src="../assets/libs/angular-route/angular-route.js"></script>
+		<!-- endbower -->
+		<!-- bower:css -->
+		<link rel="stylesheet" href="../assets/libs/bootstrap/dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../assets/libs/font-awesome/css/font-awesome.css" />
+		<link rel="stylesheet" href="../assets/libs/typopro-web/web/TypoPRO-Ubuntu/TypoPRO-Ubuntu-Bold.css" />
+		<link rel="stylesheet" href="../assets/libs/typopro-web/web/TypoPRO-Ubuntu/TypoPRO-Ubuntu-BoldItalic.css" />
+		<link rel="stylesheet" href="../assets/libs/typopro-web/web/TypoPRO-Ubuntu/TypoPRO-Ubuntu-Condensed.css" />
+		<link rel="stylesheet" href="../assets/libs/typopro-web/web/TypoPRO-Ubuntu/TypoPRO-Ubuntu-Light.css" />
+		<link rel="stylesheet" href="../assets/libs/typopro-web/web/TypoPRO-Ubuntu/TypoPRO-Ubuntu-LightItalic.css" />
+		<link rel="stylesheet" href="../assets/libs/typopro-web/web/TypoPRO-Ubuntu/TypoPRO-Ubuntu-Medium.css" />
+		<link rel="stylesheet" href="../assets/libs/typopro-web/web/TypoPRO-Ubuntu/TypoPRO-Ubuntu-MediumItalic.css" />
+		<link rel="stylesheet" href="../assets/libs/typopro-web/web/TypoPRO-Ubuntu/TypoPRO-Ubuntu-Regular.css" />
+		<link rel="stylesheet" href="../assets/libs/typopro-web/web/TypoPRO-Ubuntu/TypoPRO-Ubuntu-RegularItalic.css" />
+		<link rel="stylesheet" href="../assets/libs/typopro-web/web/TypoPRO-Ubuntu/TypoPRO-Ubuntu.css" />
+		<link rel="stylesheet" href="../assets/libs/typopro-web/web/TypoPRO-Ubuntu/TypoPRO-UbuntuMono-Bold.css" />
+		<link rel="stylesheet" href="../assets/libs/typopro-web/web/TypoPRO-Ubuntu/TypoPRO-UbuntuMono-BoldItalic.css" />
+		<link rel="stylesheet" href="../assets/libs/typopro-web/web/TypoPRO-Ubuntu/TypoPRO-UbuntuMono-Regular.css" />
+		<link rel="stylesheet" href="../assets/libs/typopro-web/web/TypoPRO-Ubuntu/TypoPRO-UbuntuMono-RegularItalic.css" />
+		<!-- endbower -->
+		<!-- inject:css -->
+		<link rel="stylesheet" href="/assets/css/ontime.css">
+		<!-- endinject -->
+		<!-- inject:js -->
+		<script src="/app/app.module.js"></script>
+		<script src="/app/app.route.js"></script>
+		<script src="/app/components/addEvent/addEventController.js"></script>
+		<script src="/app/components/home/homeController.js"></script>
+		<script src="/app/components/event/eventController.js"></script>
+		<script src="/app/shared/navBar/navBar.js"></script>
+		<!-- endinject -->
+	</head>
+	<body ng-app="onTime">
+		<navbar></navbar>
+		<div class="container-fluid content">
+			<div ng-view></div>
+    	</div>
+	</body>
+</html>

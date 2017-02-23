@@ -1,0 +1,39 @@
+body {
+    background: #ddd;
+    font-family: 'TypoPRO Ubuntu', sans-serif;
+}
+
+.navbar {
+    background: #fff;
+    padding: 15px;
+    position: fixed;
+    z-index: 1;
+    margin: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.bars {
+    font-size:20px;
+}
+
+.content {
+    margin-top: 100px;
+}
+.card {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.event {
+    padding: 15px;
+    border-radius: 2px;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.event:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
