@@ -1,3 +1,15 @@
 <div ng-controller="eventController as event">
     <h3>{{event.title}}</h3>
+
+    <div class="col-xs-12 col-md-6 col-lg-6">
+        <label class="control-label">Departure address</label>
+        <div class="input-group">
+            <input type="text" class="form-control" ng-model="event.departure.address"
+                    placeholder="Where would you like to leave from?">
+            <span class="input-group-addon" id="enterAddress"
+                    ng-click="event.getDepartureLatLng()">
+                <i class="fa fa-search"></i>
+            </span>
+        </div>
+    </div>
 </div>

@@ -9,7 +9,6 @@
     //Routes
     router.route('/')
         .get(function(req, res) {
-            console.log('Events: ' + events);
             res.status(200).json(events);
         });
 

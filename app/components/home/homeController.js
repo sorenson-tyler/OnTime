@@ -5,9 +5,9 @@
         .module('onTime')
         .controller('HomeController', homeController);
 
-    homeController.$inject = ['$location', '$http'];
+    homeController.$inject = ['$location', '$http', '$rootScope'];
 
-    function homeController($location, $http) {
+    function homeController($location, $http, $rootScope) {
         var _this = this;
         //Variables
         _this.title = 'Home';
@@ -89,9 +89,10 @@
             }
         ];
 
-        function details(id) {
+        function details(event) {
+            $rootScope.selectedEvent = event;
             //Navigate to details page
-            $location.path('/event').search(id);
+            $location.path('/event').search(event.id);
         }
 
         function addEvent() {

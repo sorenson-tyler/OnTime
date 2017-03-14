@@ -7,6 +7,7 @@
     //Controllers
     var agencies = require('./Api/agencies');
     var googleCal = require('./Api/googleCalendar');
+    var googleMaps = require('./Api/googleMaps');
 
     var port = 5000;
 
@@ -16,6 +17,7 @@
     //Routes
     app.use('/Agencies', agencies);
     app.use('/Account', googleCal);
+    app.use('/Maps', googleMaps);
 
     app.get('/', function(req, res) {
         res.status(200).sendFile(__dirname + '/app/index.html');

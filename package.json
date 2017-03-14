@@ -21,8 +21,10 @@
     "angular": "^1.6.2",
     "express": "^4.14.1",
     "google-auth-library": "^0.10.0",
+    "google-geocoding": "^0.1.7",
     "googleapis": "^16.1.0",
-    "mongodb": "^2.2.22"
+    "mongodb": "^2.2.22",
+    "q": "^1.4.1"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
