@@ -3,9 +3,9 @@
 
     //Node variables
     var express = require('express');
+    var app = express();
     var router = express.Router();
     var events = {};
-
     //Routes
     router.route('/')
         .get(function(req, res) {
@@ -75,23 +75,37 @@
             access_type: 'offline',
             scope: SCOPES
         });
+
+        // open browser window with authentication url
+        var spawn = require('child_process').spawn
+        spawn('open', [authUrl]);
+
+        var code;
+        app.get('/', function (req, res) {
+            console.log('IN ROOT');
+            code = req.param.code;
+        });
+        /*
         console.log('Authorize this app by visiting this url: ', authUrl);
+
         var rl = readline.createInterface({
             input: process.stdin,
             output: process.stdout
         });
         rl.question('Enter the code from that page here: ', function(code) {
             rl.close();
+        */
             oauth2Client.getToken(code, function(err, token) {
                 if (err) {
                     console.log('Error while trying to retrieve access token', err);
+                    console.log('The code: ', code);
                     return;
                 }
                 oauth2Client.credentials = token;
                 storeToken(token);
                 callback(oauth2Client);
             });
-        });
+        //});
     }
 
     /**
