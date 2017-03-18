@@ -6,11 +6,20 @@
     var app = express();
     var router = express.Router();
     var events = {};
+    var code;
     //Routes
     router.route('/')
         .get(function(req, res) {
             res.status(200).json(events);
+            console.log('IN FUNCTION');
+            code = req.query.code;
+            console.log('CODE: ', code);
+            // found this below and thought it could be helpful.
+            // I'm getting 'http://localhost:5000/account' in the console, not sure what that means.
+            var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+            console.log('FULL URL: ', fullUrl);
         });
+
 
     module.exports = router;
 
@@ -80,11 +89,6 @@
         var spawn = require('child_process').spawn
         spawn('open', [authUrl]);
 
-        var code;
-        app.get('/', function (req, res) {
-            console.log('IN ROOT');
-            code = req.param.code;
-        });
         /*
         console.log('Authorize this app by visiting this url: ', authUrl);
 
@@ -98,7 +102,7 @@
             oauth2Client.getToken(code, function(err, token) {
                 if (err) {
                     console.log('Error while trying to retrieve access token', err);
-                    console.log('The code: ', code);
+                    console.log('The code (in getToken error function): ', code);
                     return;
                 }
                 oauth2Client.credentials = token;
