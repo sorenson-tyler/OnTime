@@ -20,9 +20,9 @@
         })();
 
         function getDepartureLatLng() {
-            eventService.findStopTimes(_this.departure.address).then(function(response) {
+            eventService.findStopTimes(_this.departure.address, _this.event.location).then(function(response) {
                 if (response.data) {
-                    _this.stopTimes = response.data;
+                    _this.stops = response.data;
                 }
             });
         }

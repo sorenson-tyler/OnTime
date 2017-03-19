@@ -56,4 +56,23 @@
                 console.log('Restarting...');
             });
     });
+
+    gulp.task('debug', ['style', 'inject'], function() {
+        var options = {
+            script: 'app.js',
+            delayTime: 1,
+            env: {
+                'PORT': 5000
+            },
+            execMap: {
+                js: 'node --inspect'
+            },
+            watch: jsFiles
+        };
+
+        return nodemon(options)
+            .on('restart', function() {
+                console.log('Restarting...');
+            });
+    });
 })();
