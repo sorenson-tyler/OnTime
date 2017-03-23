@@ -18,7 +18,7 @@
         }
 
         function findStopTimes(dep, des) {
-            return $http.get('/Agencies/Starts?departure=' + dep + '&destination=' + des);
+            return $http.post('/Agencies/Starts', {dep: dep, des: des});
         }
     }
 })();

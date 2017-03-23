@@ -4,9 +4,9 @@
     angular.module('onTime')
         .controller('eventController', controller);
 
-    controller.$inject = ['$rootScope', 'eventService'];
+    controller.$inject = ['$rootScope', 'eventService', '$scope'];
 
-    function controller($rootScope, eventService) {
+    function controller($rootScope, eventService, $scope) {
         var _this = this;
 
         //Variables
@@ -15,14 +15,20 @@
         _this.getDepartureLatLng = getDepartureLatLng;
 
         //Functions
-        (function activate() {
-            _this.event.geocode = getLatitudeLongitude(_this.event.location);
-        })();
-
         function getDepartureLatLng() {
-            eventService.findStopTimes(_this.departure.address, _this.event.location).then(function(response) {
+            eventService.getLatitudeLongitude(_this.event.location).then(function(response) {
                 if (response.data) {
-                    _this.stops = response.data;
+                    _this.event.geocode = response.data;
+                    eventService.getLatitudeLongitude(_this.departure.address).then(function(response) {
+                        if (response.data) {
+                            var depGeocode = response.data;
+                            eventService.findStopTimes(depGeocode, _this.event.geocode).then(function(response) {
+                                if (response.data) {
+                                    _this.routes = response.data;
+                                }
+                            });
+                        }
+                    });
                 }
             });
         }
@@ -37,5 +43,12 @@
                 });
             }
         }
+
+        $scope.style = function(route) {
+            return {
+                'background-color': '#' + route.route.route_color,
+                'color': '#' + route.route.route_text_color
+            };
+        };
     }
 })();
