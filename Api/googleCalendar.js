@@ -9,15 +9,14 @@
     var code;
     //Routes
     router.route('/')
-        .get(function(req, res) {
+        .get(function(req, res, next) {
             res.status(200).json(events);
             console.log('IN FUNCTION');
             code = req.query.code;
             console.log('CODE: ', code);
-            // found this below and thought it could be helpful.
-            // I'm getting 'http://localhost:5000/account' in the console, not sure what that means.
             var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
             console.log('FULL URL: ', fullUrl);
+            next();
         });
 
 
@@ -88,6 +87,16 @@
         // open browser window with authentication url
         var spawn = require('child_process').spawn
         spawn('open', [authUrl]);
+
+        router.route('/')
+            .get(function(req, res, next) {
+                console.log('IN FUNCTION');
+                code = req.query.code;
+                console.log('CODE: ', code);
+                var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+                console.log('FULL URL: ', fullUrl);
+                next();
+            });
 
         /*
         console.log('Authorize this app by visiting this url: ', authUrl);
