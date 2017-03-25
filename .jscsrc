@@ -10,6 +10,7 @@
     "disallowTrailingComma": true,
     "disallowUnusedParams": true,
     "validateQuoteMarks": { "mark": "'", "escape": true },
+    "requireCamelCaseOrUpperCaseIdentifiers": false,
 
     "disallowSpacesInsideObjectBrackets": null,
     "disallowImplicitTypeConversion": ["string"],

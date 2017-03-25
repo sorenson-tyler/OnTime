@@ -17,8 +17,8 @@
             return $http.get('/Maps/GetLatLon?address=' + address);
         }
 
-        function findStopTimes(location) {
-            return $http.get('/Agencies/Starts?location=' + location);
+        function findStopTimes(dep, des) {
+            return $http.post('/Agencies/Starts', {dep: dep, des: des});
         }
     }
 })();
