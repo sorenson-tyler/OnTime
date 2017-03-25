@@ -102,7 +102,7 @@
             oauth2Client.getToken(code, function(err, token) {
                 if (err) {
                     console.log('Error while trying to retrieve access token', err);
-                    console.log('The code (in getToken error function): ', code);
+                    console.log('The code (in getToken function IF error): ', code);
                     return;
                 }
                 oauth2Client.credentials = token;
