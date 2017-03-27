@@ -1,20 +1,27 @@
+/*jshint esversion: 6 */
 (function() {
     'use strict';
 
     angular.module('onTime')
         .controller('eventController', controller);
 
-    controller.$inject = ['$rootScope', 'eventService', '$scope'];
+    controller.$inject = ['$rootScope', 'eventService', '$scope', '$location', '$window'];
 
-    function controller($rootScope, eventService, $scope) {
+    function controller($rootScope, eventService, $scope, $location, $window) {
         var _this = this;
 
         //Variables
-        _this.event = $rootScope.selectedEvent;
-        _this.title = _this.event.summary;
+        _this.event = angular.fromJson($window.sessionStorage.getItem('selectedEvent'));
         _this.getDepartureLatLng = getDepartureLatLng;
 
         //Functions
+        (function activate() {
+            if (_this.event === undefined) {
+                $location.path('/');
+            }
+            _this.title = _this.event.summary;
+        })();
+
         function getDepartureLatLng() {
             eventService.getLatitudeLongitude(_this.event.location).then(function(response) {
                 if (response.data) {

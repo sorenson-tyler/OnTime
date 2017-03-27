@@ -243,8 +243,6 @@
                             return object.trip_id === depTime.trip_id;
                         });
                 if (goesThrough !== undefined) {
-                    //TODO Grab the route with the trip id
-                    //TODO Filter duplicates some how
                     var depStop = _.filter(departureStops, function(o) {
                         return o.stop_id === depTime.stop_id;
                     })[0];

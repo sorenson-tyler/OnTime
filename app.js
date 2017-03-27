@@ -11,7 +11,8 @@
     var googleCal = require('./Api/googleCalendar');
     var googleMaps = require('./Api/googleMaps');
 
-    var port = 5000;
+    var port = process.env.OPENSHIFT_NODEJS_PORT || 5000;
+    var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
     app.use('/app', express.static(__dirname + '/app'));
     app.use('/assets', express.static(__dirname + '/assets'));
@@ -25,7 +26,7 @@
         res.status(200).sendFile(__dirname + '/app/index.html');
     });
 
-    app.listen(port, function() {
-        console.log('running server on port ' + port);
+    app.listen(port, server_ip_address, function() {
+        console.log('running server on ' + server_ip_address + ', port ' + port);
     });
 })();
