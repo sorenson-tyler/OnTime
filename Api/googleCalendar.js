@@ -5,11 +5,22 @@
     var express = require('express');
     var router = express.Router();
     var events = {};
+    var login_url;
 
     //Routes
     router.route('/')
-        .get(function(req, res) {
+        .get(function (req, res) {
             res.status(200).json(events);
+        });
+
+    router.route('/google')
+        .get(function (req, res) {
+            res.status(200).json(login_url);
+        });
+
+    router.route('/saveCode')
+        .get(function (req, res) {
+            getToken(req.query.code, res);
         });
 
     module.exports = router;
@@ -27,15 +38,18 @@
     var TOKEN_PATH = TOKEN_DIR + 'calendar-nodejs-quickstart.json';
 
     // Load client secrets from a local file.
-    fs.readFile('client_secret.json', function processClientSecrets(err, content) {
-        if (err) {
-            console.log('Error loading client secret file: ' + err);
-            return;
-        }
-        // Authorize a client with the loaded credentials, then call the
-        // Google Calendar API.
-        authorize(JSON.parse(content), listEvents);
-    });
+
+        fs.readFile('client_secret.json', function processClientSecrets(err, content) {
+            if (err) {
+                console.log('Error loading client secret file: ' + err);
+                return;
+            }
+            // Authorize a client with the loaded credentials, then call the
+            // Google Calendar API.
+            authorize(JSON.parse(content), listEvents);
+        });
+
+
 
     /**
      * Create an OAuth2 client with the given credentials, and then execute the
@@ -75,23 +89,31 @@
             access_type: 'offline',
             scope: SCOPES
         });
+
+        login_url = authUrl;
+
+     /*
         console.log('Authorize this app by visiting this url: ', authUrl);
         var rl = readline.createInterface({
             input: process.stdin,
             output: process.stdout
         });
+
+
         rl.question('Enter the code from that page here: ', function(code) {
             rl.close();
-            oauth2Client.getToken(code, function(err, token) {
-                if (err) {
-                    console.log('Error while trying to retrieve access token', err);
-                    return;
-                }
-                oauth2Client.credentials = token;
-                storeToken(token);
-                callback(oauth2Client);
-            });
-        });
+      */
+
+            // oauth2Client.getToken(code, function(err, token) {
+            //     if (err) {
+            //         console.log('Error while trying to retrieve access token', err);
+            //         return;
+            //     }
+            //     oauth2Client.credentials = token;
+            //     storeToken(token);
+            //     callback(oauth2Client);
+            // });
+        //});
     }
 
     /**
@@ -111,12 +133,42 @@
         console.log('Token stored to ' + TOKEN_PATH);
     }
 
+    function getToken(code, response) {
+
+        fs.readFile('client_secret.json', function processClientSecrets(err, content) {
+            if (err) {
+                console.log('Error loading client secret file: ' + err);
+                return;
+            }
+            // Authorize a client with the loaded credentials, then call the
+            // Google Calendar API.
+            //authorize(JSON.parse(content), listEvents);
+            var credentials = JSON.parse(content);
+            var clientSecret = credentials.web.client_secret;
+            var clientId = credentials.web.client_id;
+            var redirectUrl = credentials.web.redirect_uris[0];
+            var auth = new googleAuth();
+            var oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
+
+            oauth2Client.getToken(code, function(err, token) {
+                if (err) {
+                    console.log('Error while trying to retrieve access token', err);
+                    return;
+                }
+                oauth2Client.credentials = token;
+                storeToken(token);
+                login_url = null;
+                listEvents(oauth2Client, response);
+            });
+        });
+    }
+
     /**
      * Lists the next 10 events on the user's primary calendar.
      *
      * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
      */
-    function listEvents(auth) {
+    function listEvents(auth, res) {
         var calendar = google.calendar('v3');
         calendar.events.list({
             auth: auth,
@@ -131,6 +183,10 @@
                 return;
             }
             events = response.items;
+
+            if (res != null) {
+                res.status(200).json(events);
+            }
             // if (events.length == 0) {
             //     events = 'No upcoming events found.';
             // } else {

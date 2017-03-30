@@ -4,6 +4,7 @@
     });
 </script>
 <div ng-controller="HomeController as home">
+    <a ng-if= "home.login_url != null"  ng-href="{{home.login_url}}">Google Calendar Login</a>
     <div class="row carousel container slide" id="bg-carousel">
         <div class="carousel-inner">
             <div class="active item one"></div>
