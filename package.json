@@ -24,6 +24,7 @@
     "google-auth-library": "^0.10.0",
     "google-geocoding": "^0.1.7",
     "googleapis": "^16.1.0",
+    "lodash": "^4.17.4",
     "mongodb": "^2.2.22",
     "q": "^1.4.1",
     "wait.for": "^0.6.6"
