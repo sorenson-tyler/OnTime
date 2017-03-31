@@ -5,7 +5,7 @@
     var express = require('express');
     var router = express.Router();
     if (typeof localStorage === 'undefined' || localStorage === null) {
-        var LocalStorage = require('node-localstorage').LocalStorage;
+        var LocalStorage = require('localstorage').LocalStorage;
         localStorage = new LocalStorage('./scratch');
     }
     var events = {};
