@@ -9,17 +9,17 @@
 
     //Routes
     router.route('/')
-        .get(function (req, res) {
+        .get(function(req, res) {
             res.status(200).json(events);
         });
 
     router.route('/google')
-        .get(function (req, res) {
+        .get(function(req, res) {
             res.status(200).json(login_url);
         });
 
     router.route('/saveCode')
-        .get(function (req, res) {
+        .get(function(req, res) {
             getToken(req.query.code, res);
         });
 
@@ -39,17 +39,15 @@
 
     // Load client secrets from a local file.
 
-        fs.readFile('client_secret.json', function processClientSecrets(err, content) {
-            if (err) {
-                console.log('Error loading client secret file: ' + err);
-                return;
-            }
-            // Authorize a client with the loaded credentials, then call the
-            // Google Calendar API.
-            authorize(JSON.parse(content), listEvents);
-        });
-
-
+    fs.readFile('client_secret.json', function processClientSecrets(err, content) {
+        if (err) {
+            console.log('Error loading client secret file: ' + err);
+            return;
+        }
+        // Authorize a client with the loaded credentials, then call the
+        // Google Calendar API.
+        authorize(JSON.parse(content), listEvents);
+    });
 
     /**
      * Create an OAuth2 client with the given credentials, and then execute the
@@ -92,27 +90,27 @@
 
         login_url = authUrl;
 
-     /*
-        console.log('Authorize this app by visiting this url: ', authUrl);
-        var rl = readline.createInterface({
-            input: process.stdin,
-            output: process.stdout
-        });
+        /*
+           console.log('Authorize this app by visiting this url: ', authUrl);
+           var rl = readline.createInterface({
+               input: process.stdin,
+               output: process.stdout
+           });
 
 
-        rl.question('Enter the code from that page here: ', function(code) {
-            rl.close();
-      */
+           rl.question('Enter the code from that page here: ', function(code) {
+               rl.close();
+         */
 
-            // oauth2Client.getToken(code, function(err, token) {
-            //     if (err) {
-            //         console.log('Error while trying to retrieve access token', err);
-            //         return;
-            //     }
-            //     oauth2Client.credentials = token;
-            //     storeToken(token);
-            //     callback(oauth2Client);
-            // });
+        // oauth2Client.getToken(code, function(err, token) {
+        //     if (err) {
+        //         console.log('Error while trying to retrieve access token', err);
+        //         return;
+        //     }
+        //     oauth2Client.credentials = token;
+        //     storeToken(token);
+        //     callback(oauth2Client);
+        // });
         //});
     }
 
