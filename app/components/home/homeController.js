@@ -15,8 +15,8 @@
         _this.details = details;
         _this.addEvent = addEvent;
 
-
         (function activate() {
+            $rootScope.loading = true;
             getGoogleEvents();
         })();
 
@@ -24,6 +24,7 @@
             $http.get('/account/google').then(function(response) {
                 if (response.data) {
                     _this.login_url = response.data;
+                    $rootScope.loading = false;
                 }
             });
         }
@@ -36,6 +37,7 @@
                     _this.events = response.data.events;
                     $rootScope.events = response.data;
                     $window.localStorage.setItem('clientToken', JSON.stringify(response.data.token));
+                    $rootScope.loading = false;
                 }
             });
         }
@@ -62,6 +64,7 @@
                     } else {
                         login();
                     }
+                    $rootScope.loading = false;
                 });
             } else {
                 var query_string = $location.search();

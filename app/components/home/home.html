@@ -7,17 +7,11 @@
 </script>
 <div ng-controller="HomeController as home">
     <a ng-if= "home.login_url != null"  ng-href="{{home.login_url}}">Google Calendar Login</a>
-    <div class="row carousel container slide" id="bg-carousel">
-        <div class="carousel-inner">
-            <div class="active item one"></div>
-            <div class="item two"></div>
-            <div class="item three"></div>
-        </div>
-    </div>
 
-    <div class="col-xs-12">
+
+    <!-- <div class="col-xs-12">
         <a class="pull-right" href ng-click="home.addEvent()"><i class="fa fa-plus"></i> Add appointment...</a>
-    </div>
+    </div> -->
     <div class="card col-lg-4 col-md-6 col-xs-12" ng-repeat="event in home.events track by $index" ng-click="home.details(event)" ng-if="event.location != null">
         <div class="event">
             <h3>{{event.summary}} <small>{{event.start.dateTime == null? event.start.date : event.start.dateTime | date:'MM/dd/yyyy'}}</small></h3>
@@ -26,4 +20,5 @@
             </p>
         </div>
     </div>
+    <loading-panel></loading-panel>
 </div>

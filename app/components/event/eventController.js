@@ -23,6 +23,7 @@
         })();
 
         function getDepartureLatLng() {
+            $rootScope.loading = true;
             eventService.getLatitudeLongitude(_this.event.location).then(function(response) {
                 if (response.data) {
                     _this.event.geocode = response.data;
@@ -33,6 +34,7 @@
                                 if (response.data) {
                                     _this.routes = response.data;
                                 }
+                                $rootScope.loading = false;
                             });
                         }
                     });
@@ -42,11 +44,13 @@
 
         function getLatitudeLongitude(address) {
             if (_this.event !== null) {
+                $rootScope.loading = true;
                 //Converts the events address into latitude and longitude
                 eventService.getLatitudeLongitude(address).then(function(response) {
                     if (response.data) {
                         return response.data;
                     }
+                    $rootScope.loading = false;
                 });
             }
         }
