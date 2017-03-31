@@ -34,7 +34,7 @@
     // at ~/.credentials/calendar-nodejs-quickstart.json
     var SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
     var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
-        process.env.USERPROFILE) + 'app-data/data/.credentials/';
+        process.env.USERPROFILE) + 'app-root/data/.credentials/';
     var TOKEN_PATH = TOKEN_DIR + 'calendar-nodejs-quickstart.json';
 
     // Load client secrets from a local file.
