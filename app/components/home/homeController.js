@@ -15,26 +15,30 @@
         _this.details = details;
         _this.addEvent = addEvent;
 
-        (function login() {
+
+        (function activate() {
+            getGoogleEvents();
+        })();
+
+        function login() {
             $http.get('/account/google').then(function(response) {
                 if (response.data) {
                     _this.login_url = response.data;
                 }
-                });
-        })();
+            });
+        }
 
-        (function getGoogleCode() {
+        function getGoogleCode() {
             var query_string = $location.search();
-            if (query_string != null) {
-             _this.code = query_string.code;
-             $http.get('/account/saveCode?code=' + _this.code).then(function(response) {
-                 if (response.data) {
-                     _this.events = response.data;
-                     $rootScope.events = response.data;
-                 }
-             });
-            }
-        })();
+            _this.code = query_string.code;
+            $http.get('/account/getEventsByCode?code=' + _this.code).then(function(response) {
+                if (response.data) {
+                    _this.events = response.data.events;
+                    $rootScope.events = response.data;
+                    $window.localStorage.setItem('clientToken', JSON.stringify(response.data.token));
+                }
+            });
+        }
 
         function details(event) {
             $window.sessionStorage.setItem('selectedEvent', JSON.stringify(event));
@@ -47,14 +51,26 @@
             $location.path('/create');
         }
 
-        (function getGoogleEvents() {
-            $http.get('/account').then(function(response) {
-                if (response.data) {
-                    _this.events = response.data;
-                    $rootScope.events = response.data;
+        function getGoogleEvents() {
+            var token = $window.localStorage.getItem('clientToken');
+            if (token != null) {
+                $http.get('/account/getEventsByToken?token=' + token).then(function(response) {
+                    if (response.data) {
+                        _this.events = response.data.events;
+                        $rootScope.events = response.data;
+                        $window.localStorage.setItem('clientToken', JSON.stringify(response.data.token));
+                    } else {
+                        login();
+                    }
+                });
+            } else {
+                var query_string = $location.search();
+                if (query_string.code != null) {
+                    getGoogleCode();
                 }
-            });
-        })();
+                login();
+            }
+        }
     }
 
 })();
