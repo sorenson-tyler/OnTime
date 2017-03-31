@@ -4,6 +4,10 @@
     //Node variables
     var express = require('express');
     var router = express.Router();
+    if (typeof localStorage === 'undefined' || localStorage === null) {
+        var LocalStorage = require('node-localstorage').LocalStorage;
+        localStorage = new LocalStorage('./scratch');
+    }
     var events = {};
     var login_url;
 
@@ -26,16 +30,13 @@
     module.exports = router;
 
     var fs = require('fs');
-    var readline = require('readline');
     var google = require('googleapis');
     var googleAuth = require('google-auth-library');
 
     // If modifying these scopes, delete your previously saved credentials
     // at ~/.credentials/calendar-nodejs-quickstart.json
     var SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
-    var TOKEN_DIR = (process.env.HOME || process.env.HOMEPATH ||
-        process.env.USERPROFILE) + 'app-root/data/.credentials/';
-    var TOKEN_PATH = TOKEN_DIR + 'calendar-nodejs-quickstart.json';
+    var TOKEN_PATH = 'calendar-nodejs-quickstart.json';
 
     // Load client secrets from a local file.
 
@@ -64,14 +65,13 @@
         var oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
 
         // Check if we have previously stored a token.
-        fs.readFile(TOKEN_PATH, function(err, token) {
-            if (err) {
-                getNewToken(oauth2Client, callback);
-            } else {
-                oauth2Client.credentials = JSON.parse(token);
-                callback(oauth2Client);
-            }
-        });
+        var token = localStorage.getItem(TOKEN_PATH);
+        if (!token) {
+            getNewToken(oauth2Client, callback);
+        } else {
+            oauth2Client.credentials = JSON.parse(token);
+            callback(oauth2Client);
+        }
     }
 
     /**
@@ -89,29 +89,6 @@
         });
 
         login_url = authUrl;
-
-        /*
-           console.log('Authorize this app by visiting this url: ', authUrl);
-           var rl = readline.createInterface({
-               input: process.stdin,
-               output: process.stdout
-           });
-
-
-           rl.question('Enter the code from that page here: ', function(code) {
-               rl.close();
-         */
-
-        // oauth2Client.getToken(code, function(err, token) {
-        //     if (err) {
-        //         console.log('Error while trying to retrieve access token', err);
-        //         return;
-        //     }
-        //     oauth2Client.credentials = token;
-        //     storeToken(token);
-        //     callback(oauth2Client);
-        // });
-        //});
     }
 
     /**
@@ -121,14 +98,13 @@
      */
     function storeToken(token) {
         try {
-            fs.mkdirSync(TOKEN_DIR);
+            localStorage.setItem(TOKEN_DIR, token);
         } catch (err) {
             if (err.code != 'EEXIST') {
                 throw err;
             }
         }
-        fs.writeFile(TOKEN_PATH, JSON.stringify(token));
-        console.log('Token stored to ' + TOKEN_PATH);
+        console.log('Token stored to local storage as ' + TOKEN_PATH);
     }
 
     function getToken(code, response) {
@@ -140,7 +116,6 @@
             }
             // Authorize a client with the loaded credentials, then call the
             // Google Calendar API.
-            //authorize(JSON.parse(content), listEvents);
             var credentials = JSON.parse(content);
             var clientSecret = credentials.web.client_secret;
             var clientId = credentials.web.client_id;
@@ -185,16 +160,6 @@
             if (res != null) {
                 res.status(200).json(events);
             }
-            // if (events.length == 0) {
-            //     events = 'No upcoming events found.';
-            // } else {
-            //     console.log('Upcoming 10 events:');
-            //     for (var i = 0; i < events.length; i++) {
-            //         var event = events[i];
-            //         var start = event.start.dateTime || event.start.date;
-            //         console.log('%s - %s', start, event.summary);
-            //     }
-            // }
         });
     }
 })();
