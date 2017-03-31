@@ -5,6 +5,7 @@
     var express = require('express');
     var router = express.Router();
     var localStorage = require('node-localstorage').LocalStorage;
+    localStorage = new LocalStorage('./scratch');
 
     var events = {};
     var login_url;
