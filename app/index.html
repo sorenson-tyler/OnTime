@@ -35,33 +35,17 @@
 		<!-- inject:js -->
 		<script src="/app/app.module.js"></script>
 		<script src="/app/app.route.js"></script>
+		<script src="/app/shared/loadingPanel/loadingPanel.js"></script>
+		<script src="/app/shared/login/login.js"></script>
+		<script src="/app/shared/navBar/navBar.js"></script>
 		<script src="/app/components/addEvent/addEventController.js"></script>
 		<script src="/app/components/event/event.service.js"></script>
 		<script src="/app/components/event/eventController.js"></script>
 		<script src="/app/components/home/homeController.js"></script>
-		<script src="/app/shared/loadingPanel/loadingPanel.js"></script>
-		<script src="/app/shared/login/login.js"></script>
-		<script src="/app/shared/navBar/navBar.js"></script>
 		<!-- endinject -->
 	</head>
 	<body ng-app="onTime">
 		<navbar></navbar>
-		<div class="row carousel container slide" id="bg-carousel">
-			<div class="carousel-inner">
-				<div class="active item one">
-					<div class="overlay"></div>
-					<img src="/assets/images/carousel_one.jpeg" alt="The Last of us">
-				</div>
-				<div class="item two">
-					<div class="overlay"></div>
-					<img src="/assets/images/carousel_two.jpg" alt="The Last of us">
-				</div>
-				<div class="item three">
-					<div class="overlay"></div>
-					<img src="/assets/images/carousel_three.jpg" alt="The Last of us">
-				</div>
-			</div>
-		</div>
 		<div class="container-fluid content">
 			<div ng-view></div>
     	</div>
