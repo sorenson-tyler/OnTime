@@ -35,16 +35,17 @@
 		<!-- inject:js -->
 		<script src="/app/app.module.js"></script>
 		<script src="/app/app.route.js"></script>
-		<script src="/app/shared/loadingPanel/loadingPanel.js"></script>
-		<script src="/app/shared/login/login.js"></script>
-		<script src="/app/shared/navBar/navBar.js"></script>
 		<script src="/app/components/addEvent/addEventController.js"></script>
 		<script src="/app/components/event/event.service.js"></script>
 		<script src="/app/components/event/eventController.js"></script>
 		<script src="/app/components/home/homeController.js"></script>
+		<script src="/app/shared/loadingPanel/loadingPanel.js"></script>
+		<script src="/app/shared/login/login.js"></script>
+		<script src="/app/shared/navBar/navBar.js"></script>
 		<!-- endinject -->
 	</head>
 	<body ng-app="onTime">
+		<loading-panel></loading-panel>
 		<navbar></navbar>
 		<div class="container-fluid content">
 			<div ng-view></div>

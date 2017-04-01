@@ -22,7 +22,7 @@ body {
 }
 
 .content {
-    margin-top: 205px;
+    margin-top: 80px;
     padding: 25px;
 }
 .card {
@@ -45,16 +45,23 @@ body {
 #enterAddress {
     cursor: pointer;
 }
-
+loading-panel {
+  position: absolute;
+  left: 50%;
+  width: 50%;
+  z-index: 98;
+}
 .loadingPanel {
     margin: auto;
     margin-top: 15%;
+    position: relative;
+    left: -50%;
     background-color: white;
     padding: 15px;
-    width: 50%;
     border: 1px solid grey;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
     border-radius: 4px;
+    z-index: 99;
 }
 .login {
     background-color: white;
@@ -66,4 +73,8 @@ body {
 
 .title img{
     width: 400px;
+}
+
+.EventTitle {
+  color: white;
 }

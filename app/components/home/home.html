@@ -6,7 +6,7 @@
     });
 </script>
 <div ng-controller="HomeController as home">
-    <login ng-if="login_url != null || events == null"></login>
+    <login ng-if="(login_url != null || events == null) && !loading"></login>
 
 
     <!-- <div class="col-xs-12">
@@ -20,5 +20,4 @@
             </p>
         </div>
     </div>
-    <loading-panel></loading-panel>
 </div>

@@ -125,7 +125,7 @@
                 generateReturnObject(departureStopTimes, destinationStopTimes,
                     departureStops, destinationStops,
                     function(result) {
-                        fullRoutes = _.uniq(result, false, function(o) {
+                        fullRoutes = _.uniqBy(result, function(o) {
                             return o.departure.stop_id && o.destination.stop_id;
                         });
                         eventEmitter.emit('getRoutes');
@@ -147,6 +147,9 @@
                 });
             });
             eventEmitter.on('return', function() {
+                fullRoutes = _.uniqBy(fullRoutes, function(o) {
+                    return o.trip.route_id;
+                });
                 database.close();
                 res.status(200).json(fullRoutes);
             });
@@ -221,7 +224,7 @@
 
     function findStopTimes(db, query, callback) {
         db.collection('stop_times').find(query).toArray(function(err, result) {
-            var uniques = _.uniq(result, false, function(o) {
+            var uniques = _.uniqBy(result, function(o) {
                 return o.trip_id;
             });
             callback(null, uniques);
