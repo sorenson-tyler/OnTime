@@ -6,7 +6,7 @@
     });
 </script>
 <div ng-controller="HomeController as home">
-    <a ng-if= "home.login_url != null"  ng-href="{{home.login_url}}">Google Calendar Login</a>
+    <login ng-if="login_url != null || events != null"></login>
 
 
     <!-- <div class="col-xs-12">

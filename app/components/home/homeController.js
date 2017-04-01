@@ -23,9 +23,11 @@
         function login() {
             $http.get('/account/google').then(function(response) {
                 if (response.data) {
-                    _this.login_url = response.data;
+                    $rootScope.login_url = response.data;
                     $rootScope.loading = false;
                 }
+            }).catch(function(error) {
+                $rootScope.loading = false;
             });
         }
 
@@ -37,8 +39,11 @@
                     _this.events = response.data.events;
                     $rootScope.events = response.data;
                     $window.localStorage.setItem('clientToken', JSON.stringify(response.data.token));
+                    $rootScope.login_url = null;
                     $rootScope.loading = false;
                 }
+            }).catch(function(error) {
+                $rootScope.loading = false;
             });
         }
 
@@ -61,10 +66,14 @@
                         _this.events = response.data.events;
                         $rootScope.events = response.data;
                         $window.localStorage.setItem('clientToken', JSON.stringify(response.data.token));
+                        $rootScope.login_url = null;
                     } else {
                         login();
                     }
                     $rootScope.loading = false;
+                }).catch(function(error) {
+                    $window.localStorage.removeItem('clientToken');
+                    login();
                 });
             } else {
                 var query_string = $location.search();

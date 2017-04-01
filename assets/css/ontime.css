@@ -42,14 +42,6 @@ body {
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
-.header-bg {
-    width: auto;
-    height: auto;
-    background-image: url(/assets/images/navbar_image.png);
-    background-repeat: no-repeat;
-    padding-left: 50%;
-}
-
 #enterAddress {
     cursor: pointer;
 }
@@ -92,4 +84,18 @@ body {
     border: 1px solid grey;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
     border-radius: 4px;
+}
+.login {
+    margin: auto;
+    margin-top: 15%;
+    background-color: white;
+    padding: 15px;
+    width: 50%;
+    border: 1px solid grey;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    border-radius: 4px;
+}
+
+.title img{
+    width: 400px;
 }

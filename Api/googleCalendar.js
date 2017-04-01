@@ -124,7 +124,7 @@
         fs.readFile('client_secret.json', function processClientSecrets(err, content) {
             if (err) {
                 console.log('Error loading client secret file: ' + err);
-                return;
+                res.status(400);
             }
             var credentials = JSON.parse(content);
             authorize(credentials, token, res, listEvents);
@@ -148,16 +148,19 @@
         }, function(err, response) {
             if (err) {
                 events = 'The API returned an error: ' + err;
-                return;
+                getNewToken(auth);
+                res.status(400).send(events);
             }
-            events = response.items;
+            if (response != null) {
+                events = response.items;
 
-            if (res != null) {
-                var returnObj = {
-                    events: events,
-                    token: auth.credentials
-                };
-                res.status(200).json(returnObj);
+                if (res != null) {
+                    var returnObj = {
+                        events: events,
+                        token: auth.credentials
+                    };
+                    res.status(200).json(returnObj);
+                }
             }
         });
     }
