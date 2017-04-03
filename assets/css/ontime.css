@@ -1,6 +1,6 @@
 body {
-  background: url('/assets/images/london-train.jpg');
-  background-size: cover;
+    background: url('/assets/images/london-train.jpg');
+    background-size: cover;
     font-family: 'TypoPRO Ubuntu', sans-serif;
 }
 
@@ -14,17 +14,18 @@ body {
     border-radius: 0;
     left: 0;
     right: 0;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
 .bars {
-    font-size:20px;
+    font-size: 20px;
 }
 
 .content {
     margin-top: 80px;
     padding: 25px;
 }
+
 .card {
     padding-top: 5px;
     padding-bottom: 5px;
@@ -34,23 +35,25 @@ body {
     padding: 15px;
     border-radius: 2px;
     background: #fff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
 }
 
 .event:hover {
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
 #enterAddress {
     cursor: pointer;
 }
+
 loading-panel {
-  position: absolute;
-  left: 50%;
-  width: 50%;
-  z-index: 98;
+    position: absolute;
+    left: 50%;
+    width: 50%;
+    z-index: 98;
 }
+
 .loadingPanel {
     margin: auto;
     margin-top: 15%;
@@ -59,22 +62,43 @@ loading-panel {
     background-color: white;
     padding: 15px;
     border: 1px solid grey;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     border-radius: 4px;
     z-index: 99;
 }
+
+.loader {
+    border: 6px solid #f3f3f3;
+    /* Light grey */
+    border-top: 6px solid #3498db;
+    /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+}
+
 .login {
     background-color: white;
     padding: 15px;
     border: 1px solid grey;
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     border-radius: 4px;
 }
 
-.title img{
+.title img {
     width: 400px;
 }
 
 .EventTitle {
-  color: white;
+    color: white;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
