@@ -1,6 +1,6 @@
 body {
     background: url('/assets/images/london-train.jpg');
-    background-size: cover;
+    background-size: contain;
     font-family: 'TypoPRO Ubuntu', sans-serif;
 }
 
@@ -76,6 +76,7 @@ loading-panel {
     width: 50px;
     height: 50px;
     animation: spin 2s linear infinite;
+    margin: auto;
 }
 
 .login {
