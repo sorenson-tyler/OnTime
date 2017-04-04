@@ -122,6 +122,10 @@
                 stopTimes++;
             });
             eventEmitter.on('findFullRoutes', function() {
+                if (departureStopTimes.length < 1 || destinationStopTimes < 1) {
+                    eventEmitter.emit('return');
+                    return;
+                }
                 generateReturnObject(departureStopTimes, destinationStopTimes,
                     departureStops, destinationStops,
                     function(result) {
@@ -133,6 +137,10 @@
             });
             eventEmitter.on('getRoutes', function() {
                 var processed = 0;
+                if (fullRoutes.length < 1) {
+                    eventEmitter.emit('return');
+                    return;
+                }
                 fullRoutes.forEach(function(fullRoute) {
                     getTrip(fullRoute, database, function(err, tripResult) {
                         fullRoute = tripResult;

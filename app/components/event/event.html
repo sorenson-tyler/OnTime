@@ -24,5 +24,12 @@
                 </div>
             </div>
         </div>
+        <div class="col-xs-12" ng-if="event.error != null">
+            <div class="card">
+                <div class="event">
+                    {{event.error}}
+                </div>
+            </div>
+        </div>
     </div>
 </div>

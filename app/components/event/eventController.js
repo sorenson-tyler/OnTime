@@ -13,6 +13,7 @@
         //Variables
         _this.event = angular.fromJson($window.sessionStorage.getItem('selectedEvent'));
         _this.getDepartureLatLng = getDepartureLatLng;
+        var addressFormat = 'Address, City, State Zipcode.';
 
         //Functions
         (function activate() {
@@ -31,13 +32,27 @@
                         if (response.data) {
                             var depGeocode = response.data;
                             eventService.findStopTimes(depGeocode, _this.event.geocode).then(function(response) {
-                                if (response.data) {
+                                if (response.data.length > 0) {
                                     _this.routes = response.data;
+                                } else {
+                                    _this.error = 'Unable to find public transit between ' + _this.departure.address +
+                                    ' and ' + _this.event.location + '. Try another departure address. Results are most accurate when the address are in the following format: ' +
+                                    addressFormat;
                                 }
                                 $rootScope.loading = false;
                             });
+                        } else {
+                            _this.error = 'Unable to find address: ' + _this.departure.address +
+                                '. Make sure your location is in the correct format: ' +
+                                addressFormat;
+                            $rootScope.loading = false;
                         }
                     });
+                } else {
+                    _this.error = 'Unable to find address: ' + _this.event.location +
+                        '. Make sure your location is in the correct format: ' +
+                        addressFormat;
+                    $rootScope.loading = false;
                 }
             });
         }
