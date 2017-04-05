@@ -24,37 +24,39 @@
         })();
 
         function getDepartureLatLng() {
-            $rootScope.loading = true;
-            eventService.getLatitudeLongitude(_this.event.location).then(function(response) {
-                if (response.data) {
-                    _this.event.geocode = response.data;
-                    eventService.getLatitudeLongitude(_this.departure.address).then(function(response) {
-                        if (response.data) {
-                            var depGeocode = response.data;
-                            eventService.findStopTimes(depGeocode, _this.event.geocode).then(function(response) {
-                                if (response.data.length > 0) {
-                                    _this.routes = response.data;
-                                } else {
-                                    _this.error = 'Unable to find public transit between ' + _this.departure.address +
-                                    ' and ' + _this.event.location + '. Try another departure address. Results are most accurate when the address are in the following format: ' +
+            if (_this.departure.address != null) {
+                $rootScope.loading = true;
+                eventService.getLatitudeLongitude(_this.event.location).then(function(response) {
+                    if (response.data) {
+                        _this.event.geocode = response.data;
+                        eventService.getLatitudeLongitude(_this.departure.address).then(function(response) {
+                            if (response.data) {
+                                var depGeocode = response.data;
+                                eventService.findStopTimes(depGeocode, _this.event.geocode).then(function(response) {
+                                    if (response.data.length > 0) {
+                                        _this.routes = response.data;
+                                    } else {
+                                        _this.error = 'Unable to find public transit between ' + _this.departure.address +
+                                            ' and ' + _this.event.location + '. Try another departure address. Results are most accurate when the addresses are in the following format: ' +
+                                            addressFormat;
+                                    }
+                                    $rootScope.loading = false;
+                                });
+                            } else {
+                                _this.error = 'Unable to find address: ' + _this.departure.address +
+                                    '. Make sure your location is in the correct format: ' +
                                     addressFormat;
-                                }
                                 $rootScope.loading = false;
-                            });
-                        } else {
-                            _this.error = 'Unable to find address: ' + _this.departure.address +
-                                '. Make sure your location is in the correct format: ' +
-                                addressFormat;
-                            $rootScope.loading = false;
-                        }
-                    });
-                } else {
-                    _this.error = 'Unable to find address: ' + _this.event.location +
-                        '. Make sure your location is in the correct format: ' +
-                        addressFormat;
-                    $rootScope.loading = false;
-                }
-            });
+                            }
+                        });
+                    } else {
+                        _this.error = 'Unable to find address: ' + _this.event.location +
+                            '. Make sure your location is in the correct format: ' +
+                            addressFormat;
+                        $rootScope.loading = false;
+                    }
+                });
+            }
         }
 
         function getLatitudeLongitude(address) {

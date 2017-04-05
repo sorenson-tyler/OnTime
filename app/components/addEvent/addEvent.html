@@ -1,3 +1,24 @@
 <div ng-controller="addEventController as add">
     <h3>{{add.title}}</h3>
+    <form ng-submit="add.createEvent()">
+        <div class="col-xs-12 col-md-6">
+            <label class="control-label">Event summary</label>
+            <input class="form-control" type="text" name="summary" ng-model="add.event.summary" />
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <label class="control-label">Location</label>
+            <input class="form-control" type="text" name="location" ng-model="add.event.location" />
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <label class="control-label">Start</label>
+            <input class="form-control" type="text" name="start" ng-model="add.event.start" />
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <label class="control-label">End</label>
+            <input class="form-control" type="text" name="end" ng-model="add.event.end" />
+        </div>
+        <div class="col-xs-12">
+            <button class="btn btn-primary" type="submit">Create</button>
+        </div>
+    </form>
 </div>

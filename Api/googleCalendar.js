@@ -10,6 +10,12 @@
     //Application variables
     var events = {};
     var login_url;
+    var credentials;
+    var clientSecret;
+    var clientId;
+    var redirectUrl;
+    var auth;
+    var oauth2Client;
 
     //Routes
     router.route('/google')
@@ -19,7 +25,18 @@
 
     router.route('/getEventsByCode')
         .get(function(req, res) {
-            getToken(req.query.code, res);
+            getToken(req.query.code, res, listEvents);
+        });
+
+    router.route('/createEvent')
+        .post(function(req, res) {
+            if (auth.credentials == null) {
+                getToken(req.query.code, res, function(auth, res) {
+                    addEvent(auth, req.body, res);
+                });
+            } else {
+                addEvent(oauth2Client, req.body, res);
+            }
         });
 
     router.route('/getEventsByToken')
@@ -39,20 +56,20 @@
             console.log('Error loading client secret file: ' + err);
             return;
         }
-        var credentials = JSON.parse(content);
+        credentials = JSON.parse(content);
 
-        var clientSecret = credentials.web.client_secret;
-        var clientId = credentials.web.client_id;
-        var redirectUrl = credentials.web.redirect_uris[0];
-        var auth = new googleAuth();
-        var oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
+        clientSecret = credentials.web.client_secret;
+        clientId = credentials.web.client_id;
+        redirectUrl = credentials.web.redirect_uris[0];
+        auth = new googleAuth();
+        oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
 
         getNewToken(oauth2Client);
     });
 
     // If modifying these scopes, delete your previously saved credentials
     // at ~/.credentials/calendar-nodejs-quickstart.json
-    var SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
+    var SCOPES = ['https://www.googleapis.com/auth/calendar'];
     var TOKEN_PATH = 'calendar-nodejs-quickstart.json';
 
     /**
@@ -63,11 +80,11 @@
      * @param {function} callback The callback to call with the authorized client.
      */
     function authorize(credentials, token, res, callback) {
-        var clientSecret = credentials.web.client_secret;
-        var clientId = credentials.web.client_id;
-        var redirectUrl = credentials.web.redirect_uris[0];
-        var auth = new googleAuth();
-        var oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
+        clientSecret = credentials.web.client_secret;
+        clientId = credentials.web.client_id;
+        redirectUrl = credentials.web.redirect_uris[0];
+        auth = new googleAuth();
+        oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
 
         // Check if we have previously stored a token.
         if (!token) {
@@ -93,7 +110,7 @@
         login_url = authUrl;
     }
 
-    function getToken(code, response) {
+    function getToken(code, response, callback) {
         fs.readFile('client_secret.json', function processClientSecrets(err, content) {
             if (err) {
                 console.log('Error loading client secret file: ' + err);
@@ -101,12 +118,12 @@
             }
             // Authorize a client with the loaded credentials, then call the
             // Google Calendar API.
-            var credentials = JSON.parse(content);
-            var clientSecret = credentials.web.client_secret;
-            var clientId = credentials.web.client_id;
-            var redirectUrl = credentials.web.redirect_uris[0];
-            var auth = new googleAuth();
-            var oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
+            credentials = JSON.parse(content);
+            clientSecret = credentials.web.client_secret;
+            clientId = credentials.web.client_id;
+            redirectUrl = credentials.web.redirect_uris[0];
+            auth = new googleAuth();
+            oauth2Client = new auth.OAuth2(clientId, clientSecret, redirectUrl);
 
             oauth2Client.getToken(code, function(err, token) {
                 if (err) {
@@ -115,7 +132,7 @@
                 }
                 oauth2Client.credentials = token;
                 login_url = null;
-                listEvents(oauth2Client, response);
+                callback(oauth2Client, response);
             });
         });
     }
@@ -162,6 +179,23 @@
                     res.status(200).json(returnObj);
                 }
             }
+        });
+    }
+
+    function addEvent(auth, eventDetails, res) {
+        var calendar = google.calendar('v3');
+        calendar.events.insert({
+            auth: auth,
+            calendarId: 'primary',
+            resource: eventDetails
+        }, function(err, event) {
+            if (err) {
+                console.log('There was an error creating the event: ' + err);
+                res.status(400).json(err);
+                return;
+            }
+            console.log('Event created');
+            res.status(201).json(event);
         });
     }
 })();

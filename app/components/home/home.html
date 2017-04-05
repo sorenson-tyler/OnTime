@@ -8,10 +8,8 @@
 <div ng-controller="HomeController as home">
     <login ng-if="(login_url != null || events == null) && !loading"></login>
 
+    <!-- <a class="pull-right" href ng-click="home.addEvent()"><i class="fa fa-plus"></i> Add appointment...</a> -->
 
-    <!-- <div class="col-xs-12">
-        <a class="pull-right" href ng-click="home.addEvent()"><i class="fa fa-plus"></i> Add appointment...</a>
-    </div> -->
     <div class="card col-lg-4 col-md-6 col-xs-12" ng-repeat="event in home.events track by $index" ng-click="home.details(event)" ng-if="event.location != null">
         <div class="event">
             <h3>{{event.summary}} <small>{{event.start.dateTime == null? event.start.date : event.start.dateTime | date:'MM/dd/yyyy'}}</small></h3>

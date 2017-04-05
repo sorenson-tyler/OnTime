@@ -30,6 +30,10 @@
         res.status(200).sendFile(__dirname + '/app/index.html');
     });
 
+    app.get('/create', function(req, res) {
+        res.status(200).sendFile(__dirname + '/app/index.html');
+    });
+
     app.listen(port, server_ip_address, function() {
         console.log('running server on ' + server_ip_address + ', port ' + port);
     });

@@ -18,9 +18,13 @@
         <div class="col-xs-12" ng-if="event.routes">
             <div ng-repeat="route in event.routes" class="card">
                 <div class="event">
-                    <h3 ng-style="style(route)">{{route.route.route_short_name}} {{route.route.route_long_name}}</h3>
-                    <!--TODO do we want to display stops or routes? -->
-                    <a ng-href="http://maps.google.com/?ll={{route.departure.stop_lat}},{{route.departure.stop_lon}}">{{route.departure.stop_name}}</a> - <a ng-href="http://maps.google.com/?ll={{route.destination.stop_lat}},{{route.destination.stop_lon}}">{{route.destination.stop_name}}</a>
+                    <h3 ng-style="style(route)" style="padding: 10px;border-radius: 4px;">{{route.route.route_short_name}} {{route.route.route_long_name}}</h3>
+                    <div>
+                        Departure Stop: {{route.departure.stop_name}}<a  data-toggle="tooltip" title="View stop on Google Maps" style="padding-left: 10px;" ng-href="http://maps.google.com/?ll={{route.departure.stop_lat}},{{route.departure.stop_lon}}"><i class="fa fa-map-marker"></i></a>
+                    </div>
+                    <div>
+                        Destination Stop: {{route.destination.stop_name}}<a  data-toggle="tooltip" title="View stop on Google Maps" style="padding-left: 10px;" ng-href="http://maps.google.com/?ll={{route.destination.stop_lat}},{{route.destination.stop_lon}}"><i class="fa fa-map-marker"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -33,3 +37,8 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>

@@ -1,5 +1,5 @@
 body {
-    background: url('/assets/images/london-train.jpg');
+    background-color: #ddd;
     background-size: contain;
     font-family: 'TypoPRO Ubuntu', sans-serif;
 }
@@ -92,7 +92,7 @@ loading-panel {
 }
 
 .EventTitle {
-    color: white;
+    color: black;
 }
 
 @keyframes spin {
